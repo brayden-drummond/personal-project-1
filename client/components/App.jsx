@@ -16,7 +16,7 @@ function App() {
         <h1>Characters of the Destiny Universe</h1>
         <ul>
           {characters.map((character) => (
-            <li key={character}>{character}</li>
+            <li key={character.id}>{character.name}</li>
           ))}
         </ul>
       </div>
