@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchCharacters } from '../actions'
 import Loading from './Loading'
 
+// import Stack from 'react-bootstrap/Stack'
+// import 'bootstrap/dist/css/bootstrap.min.css'
+
 function App() {
   const characters = useSelector((state) => state.characters)
   const dispatch = useDispatch()
@@ -14,15 +17,19 @@ function App() {
   return (
     <>
       <div className="app">
-        <h1>Characters of the Destiny Universe</h1>
+        <h1>Characters</h1>
         <Loading />
+        {/* <Stack gap={3}> */}
         <div className="character-container">
           {characters.map((character) => {
             return (
               <div className="character-box" key={character.id}>
                 <div className="character-info">
-                  <p>{character.name}</p>
-                  <img src={`/images/${character.image}`} />
+                  <h3>{character.name}</h3>
+                  <img
+                    className="character-image"
+                    src={`/images/${character.image}`}
+                  />
                   <p>{character.class}</p>
                   <p>{character.bio}</p>
                 </div>
@@ -30,6 +37,7 @@ function App() {
             )
           })}
         </div>
+        {/* </Stack> */}
       </div>
     </>
   )

@@ -4,41 +4,31 @@ import { screen, render } from '@testing-library/react'
 
 import App from './App'
 import store from '../store'
-import { fetchFruits } from '../actions'
+import { fetchCharacters } from '../actions/index'
 
 jest.mock('../actions')
 
-fetchFruits.mockImplementation(() => () => {})
+fetchCharacters.mockImplementation(() => () => {})
 
-test('page header includes fruit', () => {
+test('dispatches fetchCharacters action', () => {
   render(
     <Provider store={store}>
       <App />
     </Provider>
   )
-  const heading = screen.getByRole('heading')
-  expect(heading.innerHTML).toMatch(/Fruit/)
+  expect(fetchCharacters).toHaveBeenCalled()
 })
 
-test('renders an <li> for each fruit', () => {
-  const fruits = ['orange', 'persimmons', 'kiwi fruit']
+test('renders characters names on page', () => {
+  const characters = ['Cayde', 'Spider']
   jest.spyOn(store, 'getState')
-  store.getState.mockImplementation(() => ({ fruits }))
+  store.getState.mockImplementation(() => ({ characters }))
 
   render(
     <Provider store={store}>
       <App />
     </Provider>
   )
-  const li = screen.getAllByRole('listitem')
-  expect(li).toHaveLength(3)
-})
-
-test('dispatches fetchFruits action', () => {
-  render(
-    <Provider store={store}>
-      <App />
-    </Provider>
-  )
-  expect(fetchFruits).toHaveBeenCalled()
+  const heading = screen.getAllByRole('heading')
+  expect(heading).toHaveLength(3)
 })
